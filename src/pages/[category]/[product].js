@@ -8,16 +8,13 @@ export default function Product({ data }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // useEffect(async () => {
-  //   console.log(data);
-  // if(!data){
-  //   const res = await fetch(
-  //     `https://fakestoreapi.com/products/${router.query.product}`
-  //   );
-  //   const data = await res.json();
-  //   setItem(data);
-  // }
-  // }, []);
+  useEffect(() => {
+    if (!data) {
+      fetch(`https://fakestoreapi.com/products/${router.query.product}`)
+        .then((res) => res.json())
+        .then((data) => setItem(data));
+    }
+  }, []);
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
@@ -125,6 +122,9 @@ export default function Product({ data }) {
 
 Product.getInitialProps = async (ctx) => {
   try {
+    if (!ctx.req) {
+      return { data: {} };
+    }
     const res = await fetch(
       `https://fakestoreapi.com/products/${ctx.query.product}`
     );
