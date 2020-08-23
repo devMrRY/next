@@ -1,10 +1,59 @@
 import Link from "next/link";
-export default function Index({ vehicle, person }) {
+import Container from "../../components/container";
+import { useState, useEffect } from "react";
+import * as _ from "lodash";
+
+function Index({ data }) {
+  const [products, setProducts] = useState(data);
+
+  // useEffect(async () => {
+  // if (!data.length) {
+  //   const res = await fetch(`https://fakestoreapi.com/products`);
+  //   const data = await res.json();
+  //   setProducts(data);
+  // }
+  // }, []);
+
   return (
-    <Link as={`/${vehicle}/${person}`} href="/[vehicle]/[person]">
-      <a>{`${person}'s ${vehicle}`}</a>
-    </Link>
+    <Container>
+      <div className="row">
+        {products
+          ? products.map((item, j) => (
+              <div className="col-lg-3 col-md-4 col-sm-6">
+                <Link
+                  as={`/${item.category}/${item.id}`}
+                  href="/[category]/[product]"
+                >
+                  <div className="card">
+                    <img src={item.image} width="200px" height="180px" />
+                    <div className="pt-2">
+                      <p>
+                        <b>{item.title}</b>
+                      </p>
+                      <h5>Rs. {item.price}</h5>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))
+          : "...loading"}
+      </div>
+    </Container>
   );
 }
 
-export const getInitialprops = () => ({ vehicle: "Bike" });
+Index.getInitialProps = async (ctx) => {
+  if (!ctx.req) {
+    return { data: [] };
+  }
+  try {
+    const res = await fetch("https://fakestoreapi.com/products");
+    const data = await res.json();
+    return { data:[] };
+  } catch (err) {
+    console.log(err.message);
+    return { data: [] };
+  }
+};
+
+export default Index;
