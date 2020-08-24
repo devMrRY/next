@@ -6,13 +6,13 @@ import * as _ from "lodash";
 function Index({ data }) {
   const [products, setProducts] = useState(data);
 
-  useEffect(async () => {
-    if (!data.length) {
-      fetch(`https://fakestoreapi.com/products`)
-        .then((res) => res.json())
-        .then((data) => setProducts(data));
-    }
-  }, []);
+  // useEffect(async () => {
+  //   if (!data.length) {
+  //     fetch(`https://fakestoreapi.com/products`)
+  //       .then((res) => res.json())
+  //       .then((data) => setProducts(data));
+  //   }
+  // }, []);
 
   return (
     <Container>

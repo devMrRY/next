@@ -8,13 +8,13 @@ export default function Product({ data }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!data) {
-      fetch(`https://fakestoreapi.com/products/${router.query.product}`)
-        .then((res) => res.json())
-        .then((data) => setItem(data));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!data) {
+  //     fetch(`https://fakestoreapi.com/products/${router.query.product}`)
+  //       .then((res) => res.json())
+  //       .then((data) => setItem(data));
+  //   }
+  // }, []);
 
   const handleChange = (name, value) => {
     setFormData({ ...formData, [name]: value });
@@ -36,7 +36,6 @@ export default function Product({ data }) {
     }
     setLoading(false);
   };
-  console.log(formData);
 
   return (
     <Container>
