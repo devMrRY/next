@@ -121,9 +121,9 @@ export default function Product({ data }) {
 
 Product.getInitialProps = async (ctx) => {
   try {
-    if (!ctx.req) {
-      return { data: {} };
-    }
+    // if (!ctx.req) {
+    //   return { data: {} };
+    // }
     const res = await fetch(
       `https://fakestoreapi.com/products/${ctx.query.product}`
     );

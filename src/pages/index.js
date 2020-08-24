@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Container from "../../components/container";
 import { useState, useEffect } from "react";
-import * as _ from "lodash";
+import { getAllProducts } from "../../lib/allProducts";
 
 function Index({ data }) {
   const [products, setProducts] = useState(data);
@@ -43,16 +43,16 @@ function Index({ data }) {
 }
 
 Index.getInitialProps = async (ctx) => {
-  if (!ctx.req) {
-    return { data: [] };
-  }
+  // if (!ctx.req) {
+  //   return { data: [] };
+  // }
   try {
     const res = await fetch("https://fakestoreapi.com/products");
     const data = await res.json();
-    return { data: [] };
+    return { data };
   } catch (err) {
     console.log(err.message);
-    return { data: [] };
+    return { data: getAllProducts() };
   }
 };
 
